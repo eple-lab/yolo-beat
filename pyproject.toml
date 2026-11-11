@@ -1,0 +1,25 @@
+[project]
+name = "yolo-beat"
+version = "0.1.0"
+description = "Webcam air drums: YOLO pose wrists hit on-screen pads to play synthesised drum sounds"
+readme = "README.md"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.14"
+dependencies = [
+    "opencv-python>=5.0.0.93",
+    "pygame-ce>=2.5.8",
+    "ultralytics>=8.4.210",
+]
+
+[project.scripts]
+yolo-beat = "yolo_beat:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
