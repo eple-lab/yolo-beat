@@ -120,3 +120,7 @@ Ultralytics YOLO가 **AGPL-3.0** 라이선스라서, 이 프로젝트도 **AGPL-
 ## To. YOLO 개발자분들께
 
 완전 감사합니다. 덕분에 재미있는 프로젝트 했습니다. ^^
+
+---
+
+Copyright © 2026 eple-lab · [AGPL-3.0-only](LICENSE)
