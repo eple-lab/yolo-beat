@@ -70,7 +70,16 @@ src/yolo_beat/
   zones.py         # 패드 배치와 진입 판정
   sounds.py        # numpy 드럼 합성 + pygame 재생
 tests/             # pytest
+docs/              # 만든 과정 전체 (아래 참고)
 ```
+
+## 문서 (docs)
+
+만든 과정을 자세히 적은 문서예요. 목차는 [docs/README.md](docs/README.md)에 있어요.
+
+- [PRD](docs/01-prd.md) · [아키텍처](docs/02-architecture.md) · [폴더 구조](docs/03-folder-structure.md)
+- [처음 하는 사람 체크리스트](docs/04-getting-started-checklist.md): Python 버전 호환, uv, 웹캠 백엔드 등 실제로 부딪힌 것
+- [개발 일지](docs/05-dev-log.md) · [시험 기록 (기대 → 실제)](docs/06-test-log.md) · [결정 기록](docs/07-decisions.md)
 
 ## 라이선스
 
