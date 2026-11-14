@@ -20,7 +20,8 @@ YOLO와 음악의 비트(Beat)를 합친 이름이에요. 시각 모델이 음�
 
 ### 시험 영상
 
-<video src="docs/videos/YOLO-Beat-test.mp4" controls width="640"></video>
+
+https://github.com/user-attachments/assets/b93c3ebc-ffc3-4fa6-8ae3-adb24ff2c423
 
 영상이 위에서 재생되지 않으면 [여기(YOLO-Beat-test.mp4, 8.5MB)](docs/videos/YOLO-Beat-test.mp4)를 눌러 주세요.
 
