@@ -113,6 +113,8 @@ def live(imgsz: int, seconds: float | None) -> None:
             cv2.imshow(win, frame)
             if cv2.waitKey(1) & 0xFF in (ord("q"), 27):
                 break
+            if cv2.getWindowProperty(win, cv2.WND_PROP_VISIBLE) < 1:  # window X button
+                break
             if t_end and now > t_end:
                 break
     finally:

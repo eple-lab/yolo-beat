@@ -10,6 +10,20 @@ YOLO와 음악의 비트(Beat)를 합친 이름이에요. 시각 모델이 음�
 - 드럼 소리는 numpy로 직접 합성해요. 샘플 파일이 필요 없어요
 - GPU 없이 CPU만으로 동작해요. Intel i5-1035G7 노트북에서 입력 크기 320 기준으로 약 11~17 FPS가 나왔어요
 
+## 실행 화면
+
+손목(점)이 들어간 패드가 노랗게 깜빡이면서 소리가 나요.
+
+| hihat + kick | crash + kick | hihat + tom |
+|---|---|---|
+| ![hihat과 kick을 친 화면](docs/images/beat1.png) | ![crash와 kick을 친 화면](docs/images/beat2.png) | ![hihat과 tom을 친 화면](docs/images/beat3.png) |
+
+### 시험 영상
+
+<video src="docs/videos/YOLO-Beat-test.mp4" controls width="640"></video>
+
+영상이 위에서 재생되지 않으면 [여기(YOLO-Beat-test.mp4, 8.5MB)](docs/videos/YOLO-Beat-test.mp4)를 눌러 주세요.
+
 ## 준비물
 
 - [uv](https://docs.astral.sh/uv/) (Python 3.14는 uv가 자동으로 준비해요)
@@ -30,7 +44,7 @@ PyTorch(CPU 버전)를 포함해서 다운로드 용량이 수백 MB 정도예�
 uv run python -m yolo_beat.app
 ```
 
-- 종료: 창에서 `q` 또는 `ESC`
+- 종료: 창에서 `q` 또는 `ESC`, 또는 창의 닫기(X) 버튼
 - 옵션
   - `--imgsz 320`: 모델 입력 크기예요. 작을수록 빠르고 덜 정확해요 (기본값 320)
   - `--mute`: 소리 없이 판정만 해요

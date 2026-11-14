@@ -16,7 +16,9 @@ yolo-beat/
 │   ├── 04-getting-started-checklist.md
 │   ├── 05-dev-log.md
 │   ├── 06-test-log.md
-│   └── 07-decisions.md
+│   ├── 07-decisions.md
+│   ├── images/           # README 실행 화면 3장 (영상에서 캡처, 얼굴은 가림)
+│   └── videos/           # 시험 영상 YOLO-Beat-test.mp4 (8.5MB)
 ├── src/
 │   └── yolo_beat/        # 파이썬 패키지 (이름에 하이픈을 못 써서 밑줄)
 │       ├── __init__.py   # uv init 기본 파일. main()은 인사만 출력 (정리는 남은 일)

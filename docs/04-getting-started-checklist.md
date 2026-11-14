@@ -154,7 +154,7 @@ uv add --dev pytest
 
 - → `cv2.VideoCapture(0, cv2.CAP_MSMF)` + `CAP_PROP_FPS=30`으로 바꾸자 320에서 17.6 FPS가 나왔다.
 - [ ] `cap.get(CAP_PROP_FPS)` 값은 믿지 말고 **직접 3초 동안 읽어서 센다.**
-- 참고: MSMF는 `cap.release()`(카메라 닫기)가 느린 편이다. Ctrl+C 종료 문제와 관련 있음(남은 일).
+- 참고: `cap.release()`(카메라 닫기)는 MSMF·DSHOW 모두 약 0.3초 걸린다(T-25). 처음에 "MSMF가 느리다"고 추측했다가 재 보고 정정했다. **추측은 재 보고 적는다.**
 
 ## 5. 모델과 Ultralytics
 

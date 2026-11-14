@@ -156,7 +156,8 @@ stateDiagram-v2
 
 ## 8. 종료 처리
 
-- 창에서 `q` 또는 `ESC` → 루프를 나와 `finally`에서 카메라, 창, 오디오를 정리하고 총 타격 수를 찍는다.
+- 창에서 `q` 또는 `ESC`, 또는 창의 닫기(X) 버튼 → 루프를 나와 `finally`에서 카메라, 창, 오디오를 정리하고 총 타격 수를 찍는다.
+  - 닫기(X)는 `waitKey` 다음에 `cv2.getWindowProperty(win, cv2.WND_PROP_VISIBLE) < 1`로 확인한다. 이 확인이 없으면 X로 닫아도 다음 `imshow`가 창을 새로 만든다(T-26).
 - `--seconds N` → N초 뒤 같은 방식으로 종료.
 - 터미널에서 Ctrl+C → `KeyboardInterrupt`를 잡아 조용히 종료한다.
-  - **알려진 문제:** MSMF `cap.release()`가 느려서, 그 사이 Ctrl+C를 한 번 더 누르면 에러 메시지가 나온다(T-16). 남은 일.
+  - **알려진 문제:** `cap.release()`(카메라 닫기)에 약 0.3초 걸린다(MSMF·DSHOW 같음, T-25). 그 사이 Ctrl+C가 한 번 더 들어오면 에러 메시지가 나오고 `total hits`가 안 찍힌다(T-16). 기능에는 영향이 없어 고치지 않고 두었다.
