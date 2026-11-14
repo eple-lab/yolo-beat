@@ -15,6 +15,8 @@ from pathlib import Path
 import cv2
 from ultralytics import YOLO
 
+from yolo_beat.hands import hand_points
+
 MODEL_PATH = Path("models/yolo11n-pose.pt")
 LEFT_WRIST, RIGHT_WRIST = 9, 10  # COCO keypoint indices
 WRIST_COLORS = {LEFT_WRIST: (255, 160, 0), RIGHT_WRIST: (0, 200, 255)}  # BGR
@@ -59,6 +61,25 @@ def wrists(result) -> dict[int, tuple[int, int]]:
     }
 
 
+def hands(result) -> dict[int, tuple[tuple[float, float], tuple[float, float]]]:
+    """Return {wrist_index: (fingertip, wrist)} in pixels for the first person."""
+    kp = result.keypoints
+    if kp is None or kp.xy is None or len(kp.xy) == 0 or kp.conf is None:
+        return {}
+    return hand_points(kp.xy[0].tolist(), kp.conf[0].tolist(), conf_min=CONF_MIN)
+
+
+def draw_hand(frame, i: int, tip, wrist) -> None:
+    """Small wrist dot, a line along the hand, big fingertip dot with the hand label."""
+    tx, ty = int(tip[0]), int(tip[1])
+    wx, wy = int(wrist[0]), int(wrist[1])
+    cv2.line(frame, (wx, wy), (tx, ty), WRIST_COLORS[i], 3)
+    cv2.circle(frame, (wx, wy), 5, WRIST_COLORS[i], -1)
+    cv2.circle(frame, (tx, ty), 14, WRIST_COLORS[i], -1)
+    cv2.putText(frame, hand_label(i), (tx - 6, ty + 6),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
+
+
 def bench(n: int, imgsz: int) -> None:
     model, cap = load_model(), open_camera()
     cap_ms, inf_ms, found = [], [], 0
@@ -101,10 +122,8 @@ def live(imgsz: int, seconds: float | None) -> None:
                 break
             frame = cv2.flip(frame, 1)
             res = model(frame, imgsz=imgsz, verbose=False)[0]
-            for i, (x, y) in wrists(res).items():
-                cv2.circle(frame, (x, y), 14, WRIST_COLORS[i], -1)
-                cv2.putText(frame, hand_label(i), (x - 6, y + 6),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
+            for i, (tip, wrist) in hands(res).items():
+                draw_hand(frame, i, tip, wrist)
             now = time.perf_counter()
             fps = 0.9 * fps + 0.1 * (1 / max(now - t_prev, 1e-6))
             t_prev = now

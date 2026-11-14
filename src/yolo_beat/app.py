@@ -11,8 +11,8 @@ import time
 
 import cv2
 
-from yolo_beat.pose_preview import (WRIST_COLORS, hand_label, load_model,
-                                      open_camera, wrists)
+from yolo_beat.pose_preview import (draw_hand, hand_label, hands, load_model,
+                                      open_camera)
 from yolo_beat.sounds import DrumKit
 from yolo_beat.zones import HitDetector, default_drum_layout
 
@@ -53,9 +53,9 @@ def run(imgsz: int, seconds: float | None, mute: bool) -> None:
             frame = cv2.flip(frame, 1)
             h, w = frame.shape[:2]
             res = model(frame, imgsz=imgsz, verbose=False)[0]
-            pts_px = wrists(res)
+            hand_px = hands(res)
             now = time.perf_counter()
-            pts = {i: (x / w, y / h) for i, (x, y) in pts_px.items()}
+            pts = {i: (tip[0] / w, tip[1] / h) for i, (tip, _) in hand_px.items()}
             for hit in detector.update(pts, now):
                 name = hit.zone.name
                 if kit:
@@ -65,12 +65,13 @@ def run(imgsz: int, seconds: float | None, mute: bool) -> None:
                 prev = last_hit_at.get(name)
                 gap = f"+{(now - prev) * 1000:5.0f} ms since last {name}" if prev else ""
                 last_hit_at[name] = now
-                print(f"{(now - t_start):7.2f}s  HIT {name:6s} by {hand_label(hit.wrist)}  {gap}",
-                      flush=True)
+                how = f"strike v={hit.speed:3.1f}" if hit.kind == "strike" else "enter       "
+                print(f"{(now - t_start):7.2f}s  HIT {name:6s} by {hand_label(hit.wrist)}  "
+                      f"{how}  {gap}", flush=True)
 
             draw_zones(frame, zones, flash_until, now)
-            for i, (x, y) in pts_px.items():
-                cv2.circle(frame, (x, y), 12, WRIST_COLORS[i], -1)
+            for i, (tip, wrist) in hand_px.items():
+                draw_hand(frame, i, tip, wrist)
             fps = 0.9 * fps + 0.1 * (1 / max(now - t_prev, 1e-6))
             t_prev = now
             cv2.putText(frame, f"FPS {fps:4.1f}", (w // 2 - 50, h - 12),

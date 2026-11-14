@@ -12,8 +12,8 @@
 | [03-folder-structure.md](03-folder-structure.md) | 파일 하나하나의 역할, git에 넣는 것과 빼는 것 | 파일을 찾을 때 |
 | [04-getting-started-checklist.md](04-getting-started-checklist.md) | **처음 하는 사람 체크리스트.** 환경 확인, Python 버전 호환, uv, 웹캠 백엔드, 모델, 테스트, 공개 전 점검 | 비슷한 프로젝트를 시작할 때 |
 | [05-dev-log.md](05-dev-log.md) | 대화 순서대로 쓴 개발 일지 (11-10 ~ 11-14) | 흐름을 처음부터 보고 싶을 때 |
-| [06-test-log.md](06-test-log.md) | 모든 시험의 "기대 결과 → 실제" (T-01 ~ T-26) | 숫자와 근거가 필요할 때 |
-| [07-decisions.md](07-decisions.md) | 결정 기록 (D-01 ~ D-27): 대안, 이유, 상태 | "왜 이렇게 했지?"가 궁금할 때 |
+| [06-test-log.md](06-test-log.md) | 모든 시험의 "기대 결과 → 실제" (T-01 ~ T-28) | 숫자와 근거가 필요할 때 |
+| [07-decisions.md](07-decisions.md) | 결정 기록 (D-01 ~ D-28): 대안, 이유, 상태 | "왜 이렇게 했지?"가 궁금할 때 |
 
 ## 처음이라면 이 순서로
 

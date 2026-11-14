@@ -23,11 +23,14 @@ yolo-beat/
 │   └── yolo_beat/        # 파이썬 패키지 (이름에 하이픈을 못 써서 밑줄)
 │       ├── __init__.py   # uv init 기본 파일. main()은 인사만 출력 (정리는 남은 일)
 │       ├── app.py        # 메인 앱
+│       ├── hands.py      # 손끝 추정
 │       ├── pose_preview.py
 │       ├── sounds.py
 │       └── zones.py
 ├── tests/
-│   ├── test_zones.py     # 구역·판정 14개
+│   ├── test_zones.py     # 구역·진입 판정 14개
+│   ├── test_strike.py    # 경계 여유·내려치기 15개
+│   ├── test_hands.py     # 손끝 추정 5개
 │   └── test_sounds.py    # 합성 소리·손 이름 6개
 │
 │  ── 아래는 git에 올라가지 않음 ──
@@ -53,8 +56,9 @@ yolo-beat/
 | 파일 | 주요 이름 | 실행 |
 |---|---|---|
 | `app.py` | `run()`, `draw_zones()`, `main()` | `uv run python -m yolo_beat.app` |
-| `pose_preview.py` | `open_camera()`, `load_model()`, `wrists()`, `hand_label()`, `bench()`, `live()` | `uv run python -m yolo_beat.pose_preview` (`--bench 60`이면 창 없이 시간 측정) |
-| `zones.py` | `Zone`, `default_drum_layout()`, `Hit`, `HitDetector` | 직접 실행 없음 |
+| `pose_preview.py` | `open_camera()`, `load_model()`, `hands()`, `wrists()`(벤치용), `draw_hand()`, `hand_label()`, `bench()`, `live()` | `uv run python -m yolo_beat.pose_preview` (`--bench 60`이면 창 없이 시간 측정) |
+| `hands.py` | `fingertip()`, `hand_points()`, `HAND_RATIO`(0.7) | 직접 실행 없음 |
+| `zones.py` | `Zone`, `default_drum_layout()`, `Hit`(`kind`, `speed`), `HitDetector` | 직접 실행 없음 |
 | `sounds.py` | `kick()` 등 6개, `synth_all()`, `to_int16()`, `DrumKit` | 직접 실행 없음 |
 
 ### `tests/`
@@ -62,6 +66,8 @@ yolo-beat/
 | 파일 | 테스트 수 | 웹캠·스피커 필요 |
 |---|---|---|
 | `test_zones.py` | 14 | 아니요 |
+| `test_strike.py` | 15 | 아니요 |
+| `test_hands.py` | 5 | 아니요 |
 | `test_sounds.py` | 6 | 아니요 (`pose_preview`를 import해서 Ultralytics 로딩에 약 4초 걸림) |
 
 각 테스트 파일 맨 위 docstring에 **구현 전에 쓴 기대 동작**이 적혀 있다.
